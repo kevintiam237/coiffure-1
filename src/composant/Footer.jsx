@@ -1,4 +1,3 @@
-import React from "react";
 import { FaTiktok } from "react-icons/fa";
 import {
   Heart,

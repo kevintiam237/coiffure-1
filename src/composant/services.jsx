@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function Services({ onBooking, showFlyer,setShowFlyer }) {
   const [servicesData, setServicesData] = useState([]);
@@ -58,7 +58,7 @@ export default function Services({ onBooking, showFlyer,setShowFlyer }) {
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {servicesToShow.map((service) => (
                 <div
-                  key={service.id}
+                  key={service._id}
                   className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-3 flex flex-col h-full group relative"
                 >
                   {/* Conteneur d'image avec effet de survol */}
@@ -153,32 +153,6 @@ export default function Services({ onBooking, showFlyer,setShowFlyer }) {
           </>
         )}
       </div>
-
-      <style jsx>{`
-        @keyframes blob {
-          0% {
-            transform: translate(0px, 0px) scale(1);
-          }
-          33% {
-            transform: translate(30px, -50px) scale(1.1);
-          }
-          66% {
-            transform: translate(-20px, 20px) scale(0.9);
-          }
-          100% {
-            transform: translate(0px, 0px) scale(1);
-          }
-        }
-        .animate-blob {
-          animation: blob 7s infinite;
-        }
-        .animation-delay-2000 {
-          animation-delay: 2s;
-        }
-        .animation-delay-4000 {
-          animation-delay: 4s;
-        }
-      `}</style>
     </section>
   );
 }

@@ -1,4 +1,3 @@
-import React from "react";
 import { Calendar, Star, Sparkles, Scissors, Heart, ChevronDown } from "lucide-react";
 
 export default function Accueil({ onBooking }) {
@@ -87,18 +86,6 @@ export default function Accueil({ onBooking }) {
           </div>
         </div>
       </div>
-
-      {/* Animations custom */}
-      <style jsx>{`
-        @keyframes float {
-          0%, 100% { transform: translateY(0px); }
-          50% { transform: translateY(-20px); }
-        }
-        @keyframes shimmer {
-          0% { transform: translateX(-100%); }
-          100% { transform: translateX(100%); }
-        }
-      `}</style>
     </section>
   );
 }

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Menu, X, Sparkles, Calendar, Crown, Scissors, Phone, Gem } from 'lucide-react';
 
 const menuItems = [

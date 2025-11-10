@@ -11,7 +11,9 @@ const PORT = process.env.PORT || 3005;
 
 // Middleware
 app.use(cors({
-  origin: "https://elgancecoiffure-six.vercel.app"
+  origin: process.env.NODE_ENV === 'production' 
+    ? "https://elgancecoiffure-six.vercel.app"
+    : ["http://localhost:5173", "http://localhost:3005"]
 }));
 
 app.use(express.json());
@@ -53,7 +55,21 @@ app.get("/api/services", async (req, res) => {
 
 // POST /api/reservation → Réception d'une réservation
 app.post("/api/reservation", async (req, res) => {
-  const { name, email, phone, service, date, time, address,message } = req.body;
+  console.log("📨 Réservation reçue:", req.body);
+  
+  const { name, email, phone, service, date, time, address, message } = req.body;
+
+  // Validation des données
+  if (!name || !email || !phone || !service || !date || !time) {
+    console.log("❌ Validation échouée - champs manquants");
+    return res.status(400).json({ error: "Tous les champs obligatoires doivent être remplis" });
+  }
+
+  // Validation basique de l'email
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) {
+    return res.status(400).json({ error: "Format d'email invalide" });
+  }
 
   const transporter = nodemailer.createTransport({
     service: "gmail",
@@ -84,16 +100,28 @@ app.post("/api/reservation", async (req, res) => {
 
   try {
     await transporter.sendMail(mailOptions);
+    console.log("✅ Email de réservation envoyé avec succès");
     res.status(200).json({ message: "Email envoyé avec succès ✅" });
   } catch (error) {
-    console.error("Erreur lors de l’envoi de l’email :", error);
-    res.status(500).json({ error: "Échec de l’envoi de l’email" });
+    console.error("❌ Erreur lors de l'envoi de l'email :", error);
+    res.status(500).json({ error: "Échec de l'envoi de l'email" });
   }
 });
 
 // POST /api/contact → Message général depuis le formulaire de contact
 app.post("/api/contact", async (req, res) => {
-  const { name, email, phone, address,message } = req.body;
+  const { name, email, phone, address, message } = req.body;
+
+  // Validation des données
+  if (!name || !email || !message) {
+    return res.status(400).json({ error: "Le nom, l'email et le message sont obligatoires" });
+  }
+
+  // Validation basique de l'email
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) {
+    return res.status(400).json({ error: "Format d'email invalide" });
+  }
 
   const transporter = nodemailer.createTransport({
     service: "gmail",
