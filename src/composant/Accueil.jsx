@@ -52,7 +52,7 @@ export default function Accueil({ onBooking }) {
 
           {/* Sous-titre */}
           <p className="text-xl md:text-2xl text-amber-800 mb-12 max-w-3xl mx-auto leading-relaxed font-light">
-            Coiffure premium à domicile, sur rendez-vous. Confort, expertise et discrétion garantis.
+            Coiffure premium à domicile, sur rendez-vous. Confort, expertise garantis.
           </p>
 
           {/* CTA */}
